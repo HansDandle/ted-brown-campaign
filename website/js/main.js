@@ -111,48 +111,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Platform accordion functionality
-    const platformHeaders = document.querySelectorAll('.platform-header');
-    const platformItems = document.querySelectorAll('.platform-item');
-    
-    platformHeaders.forEach(header => {
-        header.addEventListener('click', function() {
-            const targetId = this.getAttribute('data-target');
-            const targetItem = this.closest('.platform-item');
-            const targetContent = document.getElementById(targetId);
-            
-            // Close all other platform items
-            platformItems.forEach(item => {
-                if (item !== targetItem) {
-                    item.classList.remove('active');
-                }
-            });
-            
-            // Toggle the clicked item
-            targetItem.classList.toggle('active');
-            
-            // Smooth scroll to the active item if opening
-            if (targetItem.classList.contains('active')) {
-                setTimeout(() => {
-                    targetItem.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }, 100);
-            }
-        });
-    });
-    
-    // Close platform accordion when clicking outside
-    document.addEventListener('click', function(event) {
-        const isClickInsidePlatform = event.target.closest('.platform-accordion');
-        if (!isClickInsidePlatform) {
-            // Don't auto-close for now - let users manually close
-            // platformItems.forEach(item => {
-            //     item.classList.remove('active');
-            // });
-        }
-    });
+   // Platform accordion functionality (multiple open, no collapse)
+const headers = document.querySelectorAll('.platform-header');
+const contents = document.querySelectorAll('.platform-content');
+
+headers.forEach(header => {
+  const content = header.nextElementSibling;
+
+  header.addEventListener('click', () => {
+    const isOpen = content.classList.contains('open');
+
+    if (!isOpen) {
+      // Open clicked panel
+      content.classList.add('open');
+      content.style.maxHeight = content.scrollHeight + 'px';
+    } else {
+      // Optional: allow closing by clicking again
+      content.classList.remove('open');
+      content.style.maxHeight = null;
+    }
+  });
+});
+
+
 
     // Typing effect for hero title (optional enhancement)
     const heroName = document.querySelector('.hero-name');
