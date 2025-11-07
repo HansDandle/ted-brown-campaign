@@ -1,24 +1,3 @@
-    background: var(--light-bg);
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(30, 129, 207, 0.07);
-    padding: 2rem 1.5rem;
-    margin: 0.5rem 0 2rem 0;
-}
-    background: #fffbe6;
-    border-left: 5px solid var(--accent-color);
-    margin: 1.2em 0;
-    padding: 1em 1.5em;
-    font-size: 1.1em;
-    font-style: italic;
-    color: #333;
-    border-radius: 8px;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
-}
-    display: block;
-    margin-top: 0.5em;
-    font-size: 0.95em;
-    color: var(--primary-color);
-    font-style: normal;
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -1052,9 +1031,9 @@ h1, h2, h3, h4, h5, h6 {
 .quotes-accordion .content-inner {
     color: #333 !important;
     display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
-    gap: 0.5rem;
-    align-items: start;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+    gap: 1rem;
+    align-items: stretch;
     width: 100% !important;
     height: auto !important;
     overflow: visible !important;
