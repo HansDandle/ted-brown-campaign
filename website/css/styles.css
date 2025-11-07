@@ -67,26 +67,38 @@ body {
     line-height: 2.2em;
 }
 
+.warning-banner {
+    background-color: #dc2626;
+    color: white;
+    width: 100vw;
+    font-size: 0.95rem;
+    overflow: hidden;
+    white-space: nowrap;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1001;
+    height: 2.2em;
+    line-height: 2.2em;
+}
+
 .warning-content {
     display: inline-block;
-    padding: 0;
-    margin: 0;
-    font-size: inherit;
-    min-width: 100vw;
-    animation: ticker 30s linear infinite;
+    animation: ticker 40s linear infinite;
+    padding-left: 100%; /* start off-screen cleanly */
 }
 
 @keyframes ticker {
-    0% { transform: translateX(15%); }
-    100% { transform: translateX(-100%); }
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-90%); }
 }
 
 .warning-content p {
     display: inline;
     margin: 0;
-    line-height: 1.2;
     font-weight: 500;
 }
+
 
 /* Ensure navbar is below banner */
 .navbar {
