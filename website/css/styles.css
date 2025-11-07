@@ -1,3 +1,24 @@
+    background: var(--light-bg);
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(30, 129, 207, 0.07);
+    padding: 2rem 1.5rem;
+    margin: 0.5rem 0 2rem 0;
+}
+    background: #fffbe6;
+    border-left: 5px solid var(--accent-color);
+    margin: 1.2em 0;
+    padding: 1em 1.5em;
+    font-size: 1.1em;
+    font-style: italic;
+    color: #333;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+}
+    display: block;
+    margin-top: 0.5em;
+    font-size: 0.95em;
+    color: var(--primary-color);
+    font-style: normal;
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -25,6 +46,53 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--bg-color);
+}
+
+/* Warning Banner */
+.warning-banner {
+    background-color: #dc2626;
+    color: white;
+    width: 100vw;
+    font-size: 0.95rem;
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1001;
+    margin: 0;
+    padding: 0;
+    height: 2.2em;
+    line-height: 2.2em;
+}
+
+.warning-content {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+    min-width: 100vw;
+    animation: ticker 40s linear infinite;
+}
+
+@keyframes ticker {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+.warning-content p {
+    display: inline;
+    margin: 0;
+    line-height: 1.2;
+    font-weight: 500;
+}
+
+/* Ensure navbar is below banner */
+.navbar {
+    position: relative;
+    margin-top: 2.2em;
+    z-index: 1000;
 }
 
 .container {
@@ -902,6 +970,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Media Section Responsive */
 @media (max-width: 768px) {
+    .floating-sidebar {
+        display: none !important;
+    }
     .media-category {
         padding: 1.5rem;
         margin-bottom: 2rem;
@@ -940,9 +1011,66 @@ h1, h2, h3, h4, h5, h6 {
         width: 35px;
         height: 35px;
     }
+    
+    /* Floating Sidebar mobile fix */
+    .floating-sidebar {
+        margin-top: 7em;
+    }
 }
 
 /* Quotes Section */
+/* Jazzed up Quotes Accordion */
+.quotes-accordion .platform-content {
+    width: 100% !important;
+    background: #f5f6fa !important;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(30, 129, 207, 0.07);
+    padding: 1.5rem 1rem;
+    margin: 0.5rem 0 2rem 0;
+    display: block !important;
+    color: #333 !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+}
+
+.quotes-accordion .content-inner {
+    color: #333 !important;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+    gap: 0.5rem;
+    align-items: start;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+.quotes-accordion .content-inner blockquote {
+    background: #fffbe6 !important;
+    border-left: 5px solid var(--accent-color);
+    margin: 0.4em 0;
+    padding: 0.8em 0.75em;
+    font-size: 1rem;
+    font-style: italic;
+    color: #1a1a1a !important;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    font-weight: 500;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    overflow: hidden !important;
+}
+
+.quotes-accordion .content-inner cite {
+    display: block;
+    margin-top: 0.3em;
+    font-size: 0.9em;
+    color: var(--primary-color) !important;
+    font-style: normal;
+}
 .quotes {
     background: var(--dark-bg);
     color: white;
@@ -1049,15 +1177,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .social-links a {
-    width: 50px;
-    height: 50px;
-    background: var(--primary-color);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 1.2rem;
+    display: inline-block;
+    margin: 0 0.25em;
+    font-size: 1.5em;
+    vertical-align: middle;
+    background: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    width: auto;
+    height: auto;
+    color: inherit;
     text-decoration: none;
     transition: all 0.3s ease;
 }
@@ -1262,7 +1391,21 @@ h1, h2, h3, h4, h5, h6 {
     .content-inner {
         padding: 0 1.5rem 1.5rem 1.5rem;
     }
-    
+
+    .quotes-accordion .content-inner {
+        grid-template-columns: 1fr !important;
+        gap: 0.5rem !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .quotes-accordion .content-inner blockquote {
+        padding: 0.6em 0.5em !important;
+        font-size: 0.95rem !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
     .platform-icon {
         width: 40px;
         height: 40px;
@@ -1483,23 +1626,15 @@ html {
 }
 
 .social-links a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    background: var(--primary-color);
-    color: white;
-    border-radius: 50%;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-size: 1rem;
+    display: inline-block;
+    margin: 0 0.25em;
+    font-size: 1.5em;
+    vertical-align: middle;
 }
 
-.social-links a:hover {
-    background: var(--secondary-color);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+.social-links i {
+    font-size: 1.5em;
+    vertical-align: middle;
 }
 
 .contact-info {
@@ -1561,6 +1696,22 @@ html {
 
 .donate-btn i {
     font-size: 1rem;
+}
+
+/* Remove blue circle background from social icons */
+.social-links .message-icon,
+.social-links .platform-icon,
+.social-links .social-circle {
+    background: none !important;
+    box-shadow: none !important;
+}
+
+.social-links img {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+    background: none !important;
+    box-shadow: none !important;
 }
 
 /* Responsive behavior for floating sidebar */
@@ -1640,3 +1791,12 @@ html {
         display: inline;
     }
 }
+
+/* Ensure X.com logo displays correctly */
+.social-links .fa-x-twitter {
+    font-family: "Font Awesome 6 Brands";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.5em;
+    vertical-align: middle;
+    display: inline-block;
