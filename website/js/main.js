@@ -113,24 +113,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
    // Platform accordion functionality (multiple open, no collapse)
 const headers = document.querySelectorAll('.platform-header');
-const contents = document.querySelectorAll('.platform-content');
 
 headers.forEach(header => {
-  const content = header.nextElementSibling;
+  const platformItem = header.closest('.platform-item');
+  const content = platformItem ? platformItem.querySelector('.platform-content') : null;
 
-  header.addEventListener('click', () => {
-    const isOpen = content.classList.contains('open');
+  if (content) {
+    header.addEventListener('click', () => {
+      const isOpen = content.classList.contains('open');
 
-    if (!isOpen) {
-      // Open clicked panel
-      content.classList.add('open');
-      content.style.maxHeight = content.scrollHeight + 'px';
-    } else {
-      // Optional: allow closing by clicking again
-      content.classList.remove('open');
-      content.style.maxHeight = null;
-    }
-  });
+      if (!isOpen) {
+        // Open clicked panel
+        content.classList.add('open');
+        content.style.maxHeight = content.scrollHeight + 'px';
+      } else {
+        // Allow closing by clicking again
+        content.classList.remove('open');
+        content.style.maxHeight = null;
+      }
+    });
+  }
 });
 
 
