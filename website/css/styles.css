@@ -105,6 +105,52 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--text-color);
 }
 
+.section-blurb {
+    max-width: 900px;
+    margin: 0.5rem auto 1.25rem;
+    color: var(--light-text);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    text-align: center;
+}
+
+.see-more {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.see-more:hover {
+    text-decoration: underline;
+}
+
+/* Make the expanded 'Why Vote Libertarian' content visually match the blurb */
+#why-vote-libertarian .platform-item {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+}
+
+#why-vote-libertarian .platform-content {
+    background: transparent;
+    border: none;
+}
+
+#why-vote-libertarian .content-inner {
+    padding: 0 1rem 1rem;
+    color: var(--light-text);
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+#why-vote-libertarian .content-inner h4 {
+    color: var(--primary-color);
+    margin-top: 1rem;
+}
+
 .section-subtitle {
     text-align: center;
     font-size: 1.2rem;
@@ -664,9 +710,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .platform-list li {
     display: flex;
-    align-items: flex-start;
-    margin-bottom: 1.2rem;
-    padding: 0.8rem 0;
+    align-items: center;
+    margin-bottom: 0.35rem;
+    padding: 0.25rem 0;
     /* Ensure each item takes full width */
     width: 100%;
     break-inside: avoid;
@@ -676,9 +722,10 @@ h1, h2, h3, h4, h5, h6 {
     content: '•';
     color: var(--primary-color);
     font-weight: bold;
-    margin-right: 1.5rem;
+    margin-right: 0.6rem;
     flex-shrink: 0;
-    min-width: 20px;
+    min-width: 14px;
+    font-size: 0.95rem;
 }
 
 /* Add small buffer between bold text and regular text */
@@ -689,13 +736,50 @@ h1, h2, h3, h4, h5, h6 {
 .platform-list.reforms li::before {
     content: '✓';
     color: #2f855a;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .platform-list.problems li::before {
     content: '✗';
     color: #c53030;
-    font-weight: bold;
+    font-weight: 700;
+}
+
+/* Enforce tighter list spacing inside platform sections and remove
+   unexpected inner margins caused by per-page styles or wrappers. */
+.platform-content ul,
+.platform-content ol,
+.platform-content .problems-list ul,
+.platform-content .solution-box ul {
+    margin: 0;
+    padding: 0;
+}
+
+.platform-content ul li,
+.platform-content ol li,
+.platform-content .problems-list li,
+.platform-content .solution-box li,
+.platform-content .platform-list li {
+    margin-bottom: 0.25rem !important;
+    padding: 0 !important;
+    line-height: 1.25 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.platform-content ul li > div,
+.platform-content ol li > div,
+.platform-content .problems-list li > div,
+.platform-content .solution-box li > div {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Ensure list icons don't create extra vertical space */
+.platform-content li i,
+.platform-content li::before {
+    margin-top: 0 !important;
+    line-height: 1 !important;
 }
 
 .stats-row {
@@ -793,7 +877,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .media-items {
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
+    align-items: start;
 }
 
 .media-item {
@@ -802,6 +888,8 @@ h1, h2, h3, h4, h5, h6 {
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .media-item:hover {

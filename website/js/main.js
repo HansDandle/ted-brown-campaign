@@ -122,15 +122,24 @@ headers.forEach(header => {
     header.addEventListener('click', () => {
       const isOpen = content.classList.contains('open');
 
-      if (!isOpen) {
-        // Open clicked panel
-        content.classList.add('open');
-        content.style.maxHeight = content.scrollHeight + 'px';
-      } else {
-        // Allow closing by clicking again
-        content.classList.remove('open');
-        content.style.maxHeight = null;
-      }
+            if (!isOpen) {
+                // Open clicked panel
+                content.classList.add('open');
+                content.style.maxHeight = content.scrollHeight + 'px';
+                // If this panel is the 'more-reasons' panel, toggle the inline link text only
+                if (content.id === 'more-reasons') {
+                    const seeMore = document.querySelector('#why-vote-libertarian .see-more');
+                    if (seeMore) seeMore.textContent = 'See less';
+                }
+            } else {
+                // Allow closing by clicking again
+                content.classList.remove('open');
+                content.style.maxHeight = null;
+                if (content.id === 'more-reasons') {
+                    const seeMore = document.querySelector('#why-vote-libertarian .see-more');
+                    if (seeMore) seeMore.textContent = 'See more';
+                }
+            }
     });
   }
 });
@@ -337,4 +346,43 @@ headers.forEach(header => {
     }
 
     console.log('Ted Brown Campaign Website Loaded Successfully!');
+});
+
+// Inline "See more" links for content toggles
+const seeMoreLinks = document.querySelectorAll('.see-more');
+seeMoreLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.dataset.target;
+        const content = document.getElementById(targetId);
+        if (!content) return;
+
+        const isOpen = content.classList.contains('open');
+            if (!isOpen) {
+            content.classList.add('open');
+            content.style.maxHeight = content.scrollHeight + 'px';
+            // After expansion, ensure the start of the section remains visible.
+            // Anchor the scroll to the section top (not the inner content)
+            // and only scroll when the section is currently below the navbar.
+            setTimeout(() => {
+                const navbar = document.querySelector('.navbar');
+                const navHeight = navbar ? navbar.offsetHeight : 80;
+                const section = content.closest('section') || content;
+                const rect = section.getBoundingClientRect();
+                const sectionTop = window.pageYOffset + rect.top;
+                const desired = Math.max(0, sectionTop - navHeight - 10);
+
+                // Only scroll if the viewport currently starts below the desired position
+                if (window.pageYOffset > desired + 5 || window.pageYOffset < desired - 50) {
+                    window.scrollTo({ top: desired, behavior: 'smooth' });
+                }
+            }, 200);
+            // Toggle inline link text only; keep the intro blurb visible
+            link.textContent = 'See less';
+        } else {
+            content.classList.remove('open');
+            content.style.maxHeight = null;
+            link.textContent = 'See more';
+        }
+    });
 });
