@@ -121,11 +121,11 @@ headers.forEach(header => {
   if (content) {
     header.addEventListener('click', () => {
       const isOpen = content.classList.contains('open');
-
             if (!isOpen) {
                 // Open clicked panel
                 content.classList.add('open');
-                content.style.maxHeight = content.scrollHeight + 'px';
+                // Recompute height robustly (handles images/iframes/<details> that change layout)
+                adjustOpenPlatformHeights();
                 // If this panel is the 'more-reasons' panel, toggle the inline link text only
                 if (content.id === 'more-reasons') {
                     const seeMore = document.querySelector('#why-vote-libertarian .see-more');
@@ -360,7 +360,8 @@ seeMoreLinks.forEach(link => {
         const isOpen = content.classList.contains('open');
             if (!isOpen) {
             content.classList.add('open');
-            content.style.maxHeight = content.scrollHeight + 'px';
+            // Recompute height robustly
+            adjustOpenPlatformHeights();
             // After expansion, ensure the start of the section remains visible.
             // Anchor the scroll to the section top (not the inner content)
             // and only scroll when the section is currently below the navbar.
@@ -386,3 +387,59 @@ seeMoreLinks.forEach(link => {
         }
     });
 });
+
+// Helper to adjust maxHeight for open platform panels (used when inner <details> toggle or resize happens)
+function adjustOpenPlatformHeights() {
+    document.querySelectorAll('.platform-content.open').forEach(content => {
+        let attempts = 0;
+        const maxAttempts = 8;
+        const tick = () => {
+            const prev = parseFloat(content.style.maxHeight) || 0;
+            const target = content.scrollHeight;
+            content.style.maxHeight = target + 'px';
+            attempts++;
+            // If the measured scrollHeight grows after setting (images/iframes loaded or details expanded), try again
+            if (attempts < maxAttempts) {
+                setTimeout(() => {
+                    const now = content.scrollHeight;
+                    if (now > target + 4) tick();
+                }, 120);
+            }
+        };
+        tick();
+    });
+}
+
+// Recompute height when any <details> toggles inside platform-content
+document.addEventListener('toggle', function(e) {
+    if (e.target && e.target.tagName === 'DETAILS') {
+        // Find nearest .platform-content ancestor
+        let ancestor = e.target.parentElement;
+        while (ancestor && !ancestor.classList.contains('platform-content')) ancestor = ancestor.parentElement;
+        if (ancestor && ancestor.classList.contains('open')) {
+            // Adjust this open panel's height
+            adjustOpenPlatformHeights();
+        }
+    }
+});
+
+// Recompute on window resize for responsive content
+window.addEventListener('resize', function() {
+    adjustOpenPlatformHeights();
+});
+
+// Use ResizeObserver to react immediately when inner content changes
+if (typeof ResizeObserver !== 'undefined') {
+    const ro = new ResizeObserver(entries => {
+        entries.forEach(entry => {
+            const contentInner = entry.target;
+            const ancestor = contentInner.closest('.platform-content');
+            if (ancestor && ancestor.classList.contains('open')) {
+                // Immediately update to match new content size (small padding)
+                ancestor.style.maxHeight = (ancestor.scrollHeight + 12) + 'px';
+            }
+        });
+    });
+
+    document.querySelectorAll('.platform-content .content-inner').forEach(el => ro.observe(el));
+}
