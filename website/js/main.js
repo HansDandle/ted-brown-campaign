@@ -443,3 +443,47 @@ if (typeof ResizeObserver !== 'undefined') {
 
     document.querySelectorAll('.platform-content .content-inner').forEach(el => ro.observe(el));
 }
+
+// Quotes "Read On" button: reveal/hide extra quote cards (convert accordion into inline hidden cards)
+(function() {
+    const readBtn = document.querySelector('.btn-readon');
+    if (!readBtn) return;
+
+    readBtn.addEventListener('click', function(e) {
+        const extras = Array.from(document.querySelectorAll('.quote-card.extra-quote'));
+        if (!extras.length) return;
+
+        const anyHidden = extras.some(el => el.classList.contains('hidden'));
+
+        if (anyHidden) {
+            // Reveal extras
+            extras.forEach(el => {
+                el.classList.remove('hidden');
+                el.classList.add('fade-in');
+            });
+            readBtn.textContent = 'Show Less';
+
+            // Ensure section is visible under navbar after reveal
+            setTimeout(() => {
+                const section = document.getElementById('quotes');
+                const navbar = document.querySelector('.navbar');
+                const navHeight = navbar ? navbar.offsetHeight : 80;
+                const rect = section.getBoundingClientRect();
+                const sectionTop = window.pageYOffset + rect.top;
+                const desired = Math.max(0, sectionTop - navHeight - 10);
+                window.scrollTo({ top: desired, behavior: 'smooth' });
+            }, 200);
+        } else {
+            // Hide extras again
+            extras.forEach(el => el.classList.add('hidden'));
+            readBtn.textContent = 'Read On';
+
+            // Scroll back to top of quotes section
+            const section = document.getElementById('quotes');
+            const navbar = document.querySelector('.navbar');
+            const navHeight = navbar ? navbar.offsetHeight : 80;
+            const desired = Math.max(0, section.offsetTop - navHeight - 10);
+            window.scrollTo({ top: desired, behavior: 'smooth' });
+        }
+    });
+})();

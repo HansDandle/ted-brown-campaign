@@ -562,6 +562,57 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: var(--shadow-hover);
 }
 
+.secondary-photo-container {
+    width: 240px;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.secondary-photo-container.float-right {
+    float: right;
+    margin-left: 2rem;
+}
+
+.secondary-photo-container.float-left {
+    float: left;
+    margin-right: 2rem;
+}
+
+.about-secondary-photo {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.secondary-photo-container:hover .about-secondary-photo {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.about-feature-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.about-feature-img:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-hover);
+}
+
+.about-footer-feature {
+    padding: 2rem 0;
+    border-top: 1px solid var(--border-color);
+}
+
+.mt-3 { margin-top: 1.5rem; }
+.mt-5 { margin-top: 3rem; }
+.text-center { text-align: center; }
+
 .photo-caption {
     margin-top: 0.5rem;
     font-size: 0.9rem;
@@ -765,6 +816,107 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.25 !important;
     display: flex !important;
     align-items: center !important;
+}
+
+/* Quotes Section */
+.quotes-legacy-rules {
+    padding: 60px 0 80px;
+    background: linear-gradient(180deg, var(--bg-color) 0%, var(--light-bg) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+
+.quotes-after-reset::after {
+    /* Old decorative background removed in favor of inline photo */
+    display: none;
+}
+
+
+.quotes .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Photo placed front-and-center at start of the section */
+.quotes-photo-container {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.quotes-photo {
+    max-width: 420px;
+    width: 80%;
+    height: auto;
+    display: block;    margin: 0 auto 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    position: relative;
+    z-index: 2;
+}
+
+/* Hidden quotes until 'Read On' is clicked */
+.quote-card.hidden {
+    display: none;
+}
+
+.quotes-meta-legacy-grid {
+    column-count: 3;
+    column-gap: 1.25rem;
+    margin-bottom: 1.25rem;
+    display: block;
+    width: 100%;
+}
+
+.quote-card-legacy {
+    background: white;
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    margin: 0 0 1.25rem 0;
+    break-inside: avoid;
+    display: block; /* Ensure it flows as a block within the column */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.quote-card-blockquote-legacy {
+    margin: 0 0 0.5rem 0;
+    font-style: italic;
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+.quote-card-cite-legacy {
+    color: var(--light-text);
+    font-size: 0.95rem;
+}
+
+.quotes .read-more-row {
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.quotes .btn-readon {
+    padding: 10px 26px;
+    border-radius: 30px;
+}
+
+@media (max-width: 1100px) {
+    .quotes-grid-tablet-legacy {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .quotes-grid-mobile-legacy {
+        column-count: 1;
+    }
+
+    .quotes-after-hidden-legacy::after {
+        display: none;
+    }
 }
 
 .platform-content ul li > div,
@@ -1152,9 +1304,8 @@ h1, h2, h3, h4, h5, h6 {
     font-style: normal;
 }
 .quotes {
-    background: var(--dark-bg);
-    color: white;
     padding: 80px 0;
+    background: var(--dark-bg);
 }
 
 .quotes .section-title {
@@ -1162,10 +1313,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .quotes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 3rem;
+    column-count: 3;
+    column-gap: 2rem;
     margin-top: 3rem;
+    display: block;
+    width: 100%;
 }
 
 .quote-card {
@@ -1174,11 +1326,16 @@ h1, h2, h3, h4, h5, h6 {
     padding: 2rem;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 0 0 2rem 0;
+    break-inside: avoid;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .quote-card blockquote {
     font-size: 1.1rem;
-    line-height: 1.8;
+    line-height: 1.6;
     font-style: italic;
     margin-bottom: 1rem;
     color: rgba(255, 255, 255, 0.9);
@@ -1187,6 +1344,19 @@ h1, h2, h3, h4, h5, h6 {
 .quote-card cite {
     color: var(--accent-color);
     font-weight: 500;
+    display: block;
+}
+
+@media (max-width: 1100px) {
+    .quotes-grid {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .quotes-grid {
+        column-count: 1;
+    }
 }
 
 /* Contact Section */
