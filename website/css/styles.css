@@ -466,9 +466,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .about-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 4rem;
+    display: block;
     margin-top: 3rem;
 }
 
@@ -480,11 +478,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .about-highlights {
-    background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: var(--shadow);
-    height: fit-content;
+    display: none;
 }
 
 .about-highlights h3 {
@@ -1454,9 +1448,15 @@ h1, h2, h3, h4, h5, h6 {
 
 .support-options {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     margin-top: 3rem;
+}
+
+@media (max-width: 992px) {
+    .support-options {
+        grid-template-columns: 1fr;
+    }
 }
 
 .support-card {
@@ -1470,11 +1470,24 @@ h1, h2, h3, h4, h5, h6 {
 .support-card h3 {
     color: var(--text-color);
     margin-bottom: 1rem;
+    font-size: 1.8rem;
 }
 
 .support-card p {
     color: var(--light-text);
     margin-bottom: 2rem;
+    font-size: 1.25rem;
+}
+
+.support-card-image-wrapper {
+    max-width: 250px;
+    margin: 0 auto 1.5rem;
+}
+
+.support-card-img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
 }
 
 .support-card small {
@@ -1483,6 +1496,22 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.9rem;
     margin-top: 1rem;
     line-height: 1.4;
+}
+
+.social-previews {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+    max-height: 720px;
+    overflow-y: auto;
+}
+
+.social-preview-item {
+    background: white;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .share-buttons {
