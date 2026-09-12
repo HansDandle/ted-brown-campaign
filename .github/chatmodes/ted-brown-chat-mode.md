@@ -12,7 +12,7 @@ Purpose
 Rules
 - Keep changes small and scoped to requested work. Do not add frameworks or build tooling.
 - Reuse CSS variables from `website/css/styles.css` and follow existing design patterns.
-- Treat `tedbrown.WordPress.2025-10-31.xml` as reference content only; do not import without explicit instruction.
+- The WordPress export is no longer in this repo; do not re-add it, as the repo root is published.
 - Preserve political neutrality for copy edits unless user asks otherwise.
 
 How to use

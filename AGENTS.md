@@ -24,5 +24,5 @@
   - Then visit `http://localhost:8000/website/`
 
 ## Content Source
-- `tedbrown.WordPress.2025-10-31.xml` is a source/export artifact.
-- Treat it as reference data unless explicitly asked to transform/import content.
+- The WordPress export was removed from this repo because it was published publicly and contained author emails.
+- If content from it is needed, ask the maintainer for the file; keep it out of version control.
