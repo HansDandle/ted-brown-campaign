@@ -1075,6 +1075,53 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 10px;
 }
 
+.audio-link-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--light-bg);
+    color: var(--text-color);
+    text-decoration: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.audio-link-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+}
+
+.audio-link-card > .fa-podcast {
+    font-size: 1.75rem;
+    color: var(--primary-color);
+    flex: 0 0 auto;
+}
+
+.audio-link-text {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.audio-link-text strong {
+    font-size: 1.05rem;
+    color: var(--primary-color);
+}
+
+.audio-link-text small {
+    color: var(--light-text);
+    font-size: 0.8rem;
+}
+
+.audio-link-arrow {
+    color: var(--light-text);
+    flex: 0 0 auto;
+}
+
 .media-info {
     padding: 1.5rem;
 }
