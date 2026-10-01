@@ -389,6 +389,25 @@ h1, h2, h3, h4, h5, h6 {
     object-position: center;
 }
 
+.hero-video {
+    width: 100%;
+    max-width: 560px;
+    border-radius: 16px;
+    background: var(--gradient);
+    box-shadow: var(--shadow-hover);
+    overflow: hidden;
+    padding: 6px;
+}
+
+.hero-video video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+    background: #000;
+}
+
 .photo-placeholder {
     color: white;
     opacity: 0.8;

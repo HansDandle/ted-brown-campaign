@@ -264,17 +264,19 @@
     if (now < readSnooze()) return;
     if (!nextDeadline(now)) return;
 
-    openTimer = window.setTimeout(function () {
-        if (Date.now() <= CAMPAIGN_END) open();
-    }, SHOW_DELAY_MS);
+    // Whichever trigger fires first opens it once and cancels the other,
+    // so a dismissal isn't undone by the remaining trigger.
+    function showOnce() {
+        window.removeEventListener('scroll', onScroll);
+        window.clearTimeout(openTimer);
+        if (Date.now() <= CAMPAIGN_END && Date.now() >= readSnooze()) open();
+    }
 
     // Show sooner if the visitor is clearly engaged.
     function onScroll() {
-        if (window.pageYOffset > window.innerHeight * 1.5) {
-            window.removeEventListener('scroll', onScroll);
-            window.clearTimeout(openTimer);
-            if (!overlay.classList.contains('is-open') && Date.now() <= CAMPAIGN_END) open();
-        }
+        if (window.pageYOffset > window.innerHeight * 1.5) showOnce();
     }
+
+    openTimer = window.setTimeout(showOnce, SHOW_DELAY_MS);
     window.addEventListener('scroll', onScroll, { passive: true });
 })();
