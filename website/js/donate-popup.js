@@ -1,6 +1,6 @@
 /*
  * Campaign donation popup with election-deadline countdowns.
- * Runs from now through October 14, 2026; after that it never shows again.
+ * Runs through Election Day (polls close Nov 3, 2026); after that it never shows again.
  */
 (function () {
     'use strict';
@@ -11,7 +11,7 @@
         return Date.UTC(year, month - 1, day, hour + (cdt ? 5 : 6), minute);
     }
 
-    var CAMPAIGN_END = centralTime(2026, 10, 14, 23, 59, true);
+    var CAMPAIGN_END = centralTime(2026, 11, 3, 19, 0, false);
 
     var DEADLINES = [
         {
@@ -50,6 +50,10 @@
     var RAIL_START = centralTime(2026, 9, 1, 0, 0, true);
     var RAIL_END = DEADLINES[DEADLINES.length - 1].at;
 
+    var EARLY_VOTING_START = DEADLINES[1].at;
+    var EARLY_VOTING_END = DEADLINES[3].at;
+    var ELECTION_DAY_START = centralTime(2026, 11, 3, 7, 0, false);
+
     var STORAGE_KEY = 'tb_donate_popup_snooze';
     var SHOW_DELAY_MS = 12000;
     var SNOOZE_LATER_MS = 3 * 24 * 60 * 60 * 1000;
@@ -66,6 +70,8 @@
     var rail = overlay.querySelector('.donate-rail');
     var railFill = overlay.querySelector('.donate-rail-fill');
     var railMarker = overlay.querySelector('.donate-rail-today');
+    var voteNotice = overlay.querySelector('.donate-vote-notice');
+    var voteNoticeText = overlay.querySelector('.donate-vote-notice-text');
     var lastFocused = null;
     var tickTimer = null;
     var openTimer = null;
@@ -180,12 +186,26 @@
         }
     }
 
+    function renderVoteNotice(now) {
+        var text = '';
+        if (now >= EARLY_VOTING_START && now < EARLY_VOTING_END) {
+            text = 'Early voting is open now through Fri, Oct 30.';
+        } else if (now >= EARLY_VOTING_END && now < ELECTION_DAY_START) {
+            text = 'Election Day is Tue, Nov 3. Polls are open 7 a.m. to 7 p.m.';
+        } else if (now >= ELECTION_DAY_START && now < RAIL_END) {
+            text = 'Today is Election Day! Polls are open until 7 p.m.';
+        }
+        voteNotice.hidden = !text;
+        if (text) voteNoticeText.textContent = text;
+    }
+
     function tick() {
         var now = Date.now();
         if (!renderClock(now)) {
             close();
             return;
         }
+        renderVoteNotice(now);
         renderDates(now);
         renderRail(now);
     }
