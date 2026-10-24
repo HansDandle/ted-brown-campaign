@@ -478,6 +478,166 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.6;
 }
 
+/* Two Parties Comparison Section */
+.compare {
+    background: var(--dark-bg);
+    padding: 80px 0;
+}
+
+.compare .section-title {
+    color: white;
+}
+
+.compare .section-subtitle {
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.compare-table {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-hover);
+}
+
+.compare-row {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr 1.4fr;
+    border-top: 1px solid var(--border-color);
+}
+
+.compare-head {
+    border-top: none;
+}
+
+.compare-issue,
+.compare-cell {
+    padding: 1.1rem 1.25rem;
+    display: flex;
+    align-items: center;
+}
+
+.compare-issue {
+    font-weight: 600;
+    color: var(--light-text);
+    background: var(--light-bg);
+}
+
+.compare-cell {
+    justify-content: center;
+    text-align: center;
+}
+
+.compare-cell.compare-ted {
+    background: rgba(255, 215, 0, 0.18);
+    font-weight: 700;
+    color: var(--secondary-color);
+}
+
+.compare-cell.compare-ted a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--accent-color);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 4px;
+}
+
+.compare-cell.compare-them {
+    color: var(--light-text);
+}
+
+.compare-head .compare-cell {
+    flex-direction: column;
+    padding: 1.75rem 1rem 1.25rem;
+}
+
+.compare-head .compare-cell.compare-ted {
+    background: var(--accent-color);
+}
+
+.compare-head .compare-issue {
+    background: white;
+}
+
+.compare-avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    box-shadow: var(--shadow);
+    background: white;
+    margin-bottom: 0.75rem;
+}
+
+.compare-emblem {
+    object-fit: contain;
+    padding: 6px;
+}
+
+.compare-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.compare-party {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--light-text);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+    .compare-row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .compare-issue {
+        grid-column: 1 / -1;
+        justify-content: center;
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .compare-head .compare-issue {
+        display: none;
+    }
+
+    .compare-issue,
+    .compare-cell {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    .compare-avatar {
+        width: 80px;
+        height: 80px;
+    }
+
+    .compare-name {
+        font-size: 1rem;
+    }
+
+    .compare-party {
+        font-size: 0.8rem;
+    }
+}
+
 /* About Section */
 .about {
     background: var(--light-bg);

@@ -40,7 +40,14 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            let target = document.querySelector(this.getAttribute('href'));
+            // Links to a platform topic open that panel and scroll to its header
+            if (target && target.classList.contains('platform-content')) {
+                const item = target.closest('.platform-item');
+                const header = item ? item.querySelector('.platform-header') : null;
+                if (header && !target.classList.contains('open')) header.click();
+                if (item) target = item;
+            }
             if (target) {
                 const offsetTop = target.offsetTop - 80; // Account for fixed navbar
                 window.scrollTo({
