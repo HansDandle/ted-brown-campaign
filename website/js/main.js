@@ -1,3 +1,9 @@
+// Height of the fixed header (warning banner + navbar), so scrolled-to sections aren't hidden under it
+function getHeaderOffset() {
+    const navbar = document.querySelector('.navbar');
+    return navbar ? navbar.getBoundingClientRect().bottom : 80;
+}
+
 // Mobile Navigation Toggle
 document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
@@ -49,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (item) target = item;
             }
             if (target) {
-                const offsetTop = target.offsetTop - 80; // Account for fixed navbar
+                const offsetTop = window.pageYOffset + target.getBoundingClientRect().top - getHeaderOffset();
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth'
@@ -103,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         let current = '';
         sections.forEach(section => {
-            const sectionTop = section.offsetTop - 100;
+            const sectionTop = section.offsetTop - getHeaderOffset() - 20;
             const sectionHeight = section.clientHeight;
             if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
                 current = section.getAttribute('id');
@@ -373,8 +379,7 @@ seeMoreLinks.forEach(link => {
             // Anchor the scroll to the section top (not the inner content)
             // and only scroll when the section is currently below the navbar.
             setTimeout(() => {
-                const navbar = document.querySelector('.navbar');
-                const navHeight = navbar ? navbar.offsetHeight : 80;
+                const navHeight = getHeaderOffset();
                 const section = content.closest('section') || content;
                 const rect = section.getBoundingClientRect();
                 const sectionTop = window.pageYOffset + rect.top;
@@ -473,8 +478,7 @@ if (typeof ResizeObserver !== 'undefined') {
             // Ensure section is visible under navbar after reveal
             setTimeout(() => {
                 const section = document.getElementById('quotes');
-                const navbar = document.querySelector('.navbar');
-                const navHeight = navbar ? navbar.offsetHeight : 80;
+                const navHeight = getHeaderOffset();
                 const rect = section.getBoundingClientRect();
                 const sectionTop = window.pageYOffset + rect.top;
                 const desired = Math.max(0, sectionTop - navHeight - 10);
@@ -487,8 +491,7 @@ if (typeof ResizeObserver !== 'undefined') {
 
             // Scroll back to top of quotes section
             const section = document.getElementById('quotes');
-            const navbar = document.querySelector('.navbar');
-            const navHeight = navbar ? navbar.offsetHeight : 80;
+            const navHeight = getHeaderOffset();
             const desired = Math.max(0, section.offsetTop - navHeight - 10);
             window.scrollTo({ top: desired, behavior: 'smooth' });
         }
